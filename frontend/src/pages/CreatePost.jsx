@@ -30,16 +30,23 @@ function CreatePost() {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Vous devez entrer un titre !"),
     postText: Yup.string().required("Vous devez entrer un contenu !"),
-    imgId: Yup.string().required("Vous devez mettre une Id d'image !"),
+    // imgId: Yup.string().required("Vous devez mettre une Id d'image !"),
   });
 
   const onSubmit = (data) => {
+    console.log("data dans onsubit");
+    console.log(data);
     axios
-      .post("http://localhost:3001/posts", data, {
-        headers: { accessToken: localStorage.getItem("accessToken") },
-      })
+      .post(
+        "http://localhost:3001/posts",
+        { ...data, imgId: imgIdForm },
+        {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        }
+      )
       .then((response) => {
         history.push("/");
+        // console.log(response);
       });
   };
 
@@ -84,7 +91,7 @@ function CreatePost() {
             name="postText"
             placeholder="(Ex. Contenu...)"
           />
-          <label>id : </label>
+          {/* <label>id : </label>
           <ErrorMessage name="imgId" component="span" />
           <h3>{imgIdForm}</h3>
           <Field
@@ -92,7 +99,7 @@ function CreatePost() {
             id="inputCreatePost"
             name="imgId"
             placeholder="(Ex. Collez l'id de votre image)"
-          />
+          /> */}
           <input
             type="file"
             onChange={(event) => {
@@ -110,7 +117,19 @@ function CreatePost() {
           >
             Valider
           </button> */}
-          <button type="submit"> Créer post</button>
+          <button
+            type="submit"
+            onClick={() => {
+              initialValues.imgId = imgIdForm;
+              console.log("imgidmorm: ");
+              console.log(imgIdForm);
+              console.log("initial values");
+              console.log(initialValues);
+            }}
+          >
+            {" "}
+            Créer post
+          </button>
         </Form>
       </Formik>
       <div className="image">

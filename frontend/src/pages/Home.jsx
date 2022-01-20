@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import { AuthContext } from "../helpers/AuthContext";
+import { Image } from "cloudinary-react";
 
 function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
@@ -82,6 +83,9 @@ function Home() {
           /* on ajoute la valeur key pour éviter les warnings d'argument non utilisé */
           <div key={key} className="post">
             <div className="title"> {value.title} </div>
+            <div className="image">
+              <Image cloudName="testgroupopen" publicId={value.imgId}></Image>
+            </div>
             {/* on a déplacé le onclick de façon à ce qu'on n'aille sur la page du post que si on clique au milieu */}
             {/* alors que si on like, on ne va pas sur la page du post */}
             <div

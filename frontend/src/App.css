@@ -328,6 +328,15 @@ button {
   color: white;
 }
 
+.image > Img {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 300px;
+  max-width: 120px;
+}
+
 @media only screen and (max-width: 562px) {
   .navbar {
     flex-direction: column;
