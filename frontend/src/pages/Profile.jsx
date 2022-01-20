@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
+import { Image } from "cloudinary-react";
 
 function Profile() {
   let { id } = useParams();
@@ -12,16 +13,26 @@ function Profile() {
   const { authState, setAuthState } = useContext(AuthContext);
 
   console.log(authState);
+  console.log("liste des posts");
+  console.log(listOfPosts);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
-      setUsername(response.data.username);
-      console.log("helo");
-    });
-    axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
-      setListOfPosts(response.data);
-      console.log("helo2");
-    });
+    axios
+      .get(`http://localhost:3001/auth/basicinfo/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        setUsername(response.data.username);
+        console.log("helo");
+      });
+    axios
+      .get(`http://localhost:3001/posts/byuserId/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        setListOfPosts(response.data);
+        console.log("helo2");
+      });
   }, []);
 
   const deactivateUser = () => {
@@ -82,6 +93,9 @@ function Profile() {
               <div className="title"> {value.title} </div>
               {/* on a déplacé le onclick de façon à ce qu'on n'aille sur la page du post que si on clique au milieu */}
               {/* alors que si on like, on ne va pas sur la page du post */}
+              <div className="image">
+                <Image cloudName="testgroupopen" publicId={value.imgId}></Image>
+              </div>
               <div
                 className="body"
                 onClick={() => {

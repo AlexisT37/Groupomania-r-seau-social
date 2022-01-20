@@ -15,7 +15,7 @@ app.use(helmet());
 const db = require("./models");
 
 /* on utilise la validation de token pour toutes les routes */
-// app.get("*", AuthMiddleware.validateToken);
+app.get("*", AuthMiddleware.validateToken);
 
 //routeurs
 const postRouter = require("./routes/Posts.routes");

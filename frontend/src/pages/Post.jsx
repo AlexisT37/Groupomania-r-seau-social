@@ -22,13 +22,21 @@ function Post() {
   // console.log(authState);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
-      setPostObject(response.data);
-    });
+    axios
+      .get(`http://localhost:3001/posts/byId/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        setPostObject(response.data);
+      });
 
-    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-      setComments(response.data);
-    });
+    axios
+      .get(`http://localhost:3001/comments/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        setComments(response.data);
+      });
     /* le tableau vide est là pour nous empêcher d'avoir une boucle infinie */
     /* Depuis react 16.8, on aura un message d'eslint nous disant qu'il faut remplir le tableau */
     /* on utilise le commentaire suivant pour désactiver l'alerte d'eslint */
