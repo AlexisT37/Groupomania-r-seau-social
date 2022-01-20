@@ -1,17 +1,24 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
+import { Image } from "cloudinary-react";
 
 function CreatePost() {
   const { authState } = useContext(AuthContext);
+  const [imgIdForm, setImgId] = useState("");
+
+  function ApplyUrl(value) {
+    setImgId(value);
+  }
 
   let history = useHistory();
   const initialValues = {
     title: "",
     postText: "",
+    imgId: "",
   };
 
   useEffect(() => {
@@ -23,6 +30,7 @@ function CreatePost() {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Vous devez entrer un titre !"),
     postText: Yup.string().required("Vous devez entrer un contenu !"),
+    imgId: Yup.string().required("Vous devez mettre une Id d'image !"),
   });
 
   const onSubmit = (data) => {
@@ -32,6 +40,23 @@ function CreatePost() {
       })
       .then((response) => {
         history.push("/");
+      });
+  };
+
+  const uploadImage = (files) => {
+    console.log(files[0]);
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    formData.append("upload_preset", "testupload");
+    axios
+      .post(
+        "https://api.cloudinary.com/v1_1/testgroupopen/image/upload",
+        formData
+      )
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.public_id);
+        ApplyUrl(response.data.public_id);
       });
   };
 
@@ -59,9 +84,38 @@ function CreatePost() {
             name="postText"
             placeholder="(Ex. Contenu...)"
           />
+          <label>id : </label>
+          <ErrorMessage name="imgId" component="span" />
+          <h3>{imgIdForm}</h3>
+          <Field
+            autoComplete="off"
+            id="inputCreatePost"
+            name="imgId"
+            placeholder="(Ex. Collez l'id de votre image)"
+          />
+          <input
+            type="file"
+            onChange={(event) => {
+              uploadImage(event.target.files);
+            }}
+          ></input>
+          {/* <button
+            type="button"
+            onClick={() => {
+              initialValues.imgId = imgIdForm;
+              console.log(imgIdForm);
+              console.log(initialValues);
+            }}
+            className="uploadImage"
+          >
+            Valider
+          </button> */}
           <button type="submit"> Créer post</button>
         </Form>
       </Formik>
+      <div className="image">
+        <Image cloudName="testgroupopen" publicId={imgIdForm}></Image>
+      </div>
     </div>
   );
 }

@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    imgId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 
   /* on crée une association de type cascade entre la base de données des posts */

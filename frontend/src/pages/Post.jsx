@@ -3,6 +3,7 @@ import { useParams, useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 import { RedditIcon, RedditShareButton } from "react-share";
+import { Image } from "cloudinary-react";
 
 function Post() {
   let { id } = useParams();
@@ -114,6 +115,12 @@ function Post() {
         <div className="post" id="individual">
           <div className="title"> {postObject.title} </div>
           <div className="body">{postObject.postText}</div>
+          <div className="image">
+            <Image
+              cloudName="testgroupopen"
+              publicId={postObject.imgId}
+            ></Image>
+          </div>
           <div className="footer">
             {postObject.username} {/* type == === */}
             {(authState.username === postObject.username ||
