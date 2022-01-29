@@ -7,11 +7,38 @@ const { sign } = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
+/* password validator */
+
+const passwordValidator = require("password-validator");
+const mdpSchema = new passwordValidator();
+mdpSchema
+  .is()
+  .min(8) // Minimum length 8
+  .is()
+  .max(100) // Maximum length 100
+  .has()
+  .uppercase() // Must have uppercase letters
+  .has()
+  .lowercase() // Must have lowercase letters
+  .has()
+  .digits(2) // Must have at least 2 digits
+  .has()
+  .not()
+  .spaces(); // Should not have spaces
+
 /* Si on va avec le navigateur sur /posts alors on a hello world */
 
 router.post("/", async (req, res) => {
   /* on fait une déstructuration car on ne veut pas le password tel quel: on va vouloir le hasher*/
   const { username, password } = req.body;
+
+  if (!mdpSchema.validate(req.body.password)) {
+    return res.status(401).json({
+      message:
+        "Il faut des minuscules, majuscules, nombres et pas d'espace à votre mot de passe",
+    });
+  }
+
   bcrypt
     .hash(password, 10)
     .then((hash) => {

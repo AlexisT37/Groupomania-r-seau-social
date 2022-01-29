@@ -15,9 +15,12 @@ function Registration() {
       .max(15)
       .required("Vous devez entrer un nom d'utilisateur !"),
     password: Yup.string()
-      .min(8)
-      .max(20)
-      .required("Votre mot de passe n'a pas un bon format !"),
+      .required("Vous devez entrer un mot de passe")
+      .min(8, "Il faut au moins 8 caractères")
+      .matches(/[a-z]+/, "Il faut des minuscules")
+      .matches(/[A-Z]+/, "Il faut des majuscules")
+      // .matches(/[@$!%*#?&]+/, "One special character")
+      .matches(/\d+/, "Il faut au moins un chiffre"),
   });
 
   const onSubmit = (data) => {
@@ -44,7 +47,7 @@ function Registration() {
             autoComplete="off"
             id="inputCreatePost"
             name="username"
-            placeholder="(Ex. Martin18...)"
+            placeholder="(Ex. Martin18, Martin18@gmail.com...)"
           />
           <label>Mot de passe : </label>
           <ErrorMessage name="password" component="span" />
