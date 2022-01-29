@@ -24,10 +24,15 @@ function Registration() {
   });
 
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/auth", data).then(() => {
-      // console.log(data);
-      window.location.pathname = "/login";
-    });
+    axios
+      .post("http://localhost:3001/auth", data)
+      .then(() => {
+        window.location.pathname = "/login";
+      })
+      .catch(() => {
+        alert("Ce nom d'utilisateur est déjà pris !");
+        window.location.reload(false);
+      });
   };
 
   return (

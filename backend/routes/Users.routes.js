@@ -32,6 +32,15 @@ router.post("/", async (req, res) => {
   /* on fait une déstructuration car on ne veut pas le password tel quel: on va vouloir le hasher*/
   const { username, password } = req.body;
 
+  const duplicate = await Users.findOne({
+    where: { username: username },
+  });
+
+  if (duplicate) {
+    console.log("deja pris");
+    return res.status(401).json({ message: "nom d'utilisateur déjà pris" });
+  }
+
   if (!mdpSchema.validate(req.body.password)) {
     return res.status(401).json({
       message:
