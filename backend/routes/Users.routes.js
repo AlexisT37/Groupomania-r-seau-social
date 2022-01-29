@@ -28,7 +28,7 @@ mdpSchema
 
 /* Si on va avec le navigateur sur /posts alors on a hello world */
 
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
   /* on fait une déstructuration car on ne veut pas le password tel quel: on va vouloir le hasher*/
   const { username, password } = req.body;
 

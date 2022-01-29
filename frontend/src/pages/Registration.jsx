@@ -25,7 +25,7 @@ function Registration() {
 
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:3001/auth", data)
+      .post("http://localhost:3001/auth/register", data)
       .then(() => {
         window.location.pathname = "/login";
       })
