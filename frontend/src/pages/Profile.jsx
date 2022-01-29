@@ -64,26 +64,25 @@ function Profile() {
     <div className="profilePageContainer">
       <div className="basicInfo">
         <h1>{username}</h1>
-        {username == authState.username ||
-          (authState.admin === true && (
-            <button
-              onClick={() => {
-                console.log("Hello clique desactiver");
-                // console.log(username);
-                // console.log(id);
-                // console.log(authState.username);
-                console.log("trying to find");
-                // console.log(authState.usernamePrimal);
-                // const teso = authState;
-                // console.log(teso);
-                // console.log(typeof teso);
+        {(username == authState.username || authState.admin === true) && (
+          <button
+            onClick={() => {
+              console.log("Hello clique desactiver");
+              // console.log(username);
+              // console.log(id);
+              // console.log(authState.username);
+              console.log("trying to find");
+              // console.log(authState.usernamePrimal);
+              // const teso = authState;
+              // console.log(teso);
+              // console.log(typeof teso);
 
-                deactivateUser();
-              }}
-            >
-              Désactiver Compte
-            </button>
-          ))}
+              deactivateUser();
+            }}
+          >
+            Désactiver Compte
+          </button>
+        )}
       </div>
       <div className="listOfPosts">
         {listOfPosts.map((value, key) => {
