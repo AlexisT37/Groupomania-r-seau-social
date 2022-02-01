@@ -4,7 +4,7 @@
 
 const express = require("express");
 const router = express.Router();
-const { Posts, Likes } = require("../models");
+// const { Posts, Likes } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
 const postCtrl = require("../controllers/Posts.controllers");
