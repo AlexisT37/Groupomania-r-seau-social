@@ -35,6 +35,7 @@ et vider le localstorage. Vous serez alors redirigé vers la page de connexion.
   sert d'interface entre node.js et notre base de données relationnelle SQL.
 - cloudinary-react pour mettre en ligne et afficher des image. Grâce à cette librairie, le site entre en relation avec l'hébergeur cloudinary.
   Ainsi, seul l'id de l'image est stocké pour ne pas avoir a conserver l'URI/URL de l'image ou l'image elle-même.
+- password-validator pour faire en sorte que le mot de passe soit assez sécurisé lors de l'inscription.
 
 ##Fonctionnalités:
 
@@ -44,3 +45,4 @@ et vider le localstorage. Vous serez alors redirigé vers la page de connexion.
 - l'utilisateur peut partager le post via le bouton de partage sur le réseau social reddit.
 - l'utilisateur peut désactiver son compte: il ne s'agit pas d'une suppression véritable mais d'une désactivation du compte.
 - l'utilisateur admin peut supprimer les posts et les commentaires des autres utilisateurs
+- l'utilisateur peut se rendre sur son propre profil depuis n'importe quelle page avec la barre de navigation.
