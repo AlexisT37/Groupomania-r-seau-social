@@ -213,6 +213,14 @@ span {
 
 /* commentaires DEBUT*/
 
+.comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: 30px; */
+}
+
 .rightSide .addCommentContainer {
   flex: 20%;
   width: 100%;

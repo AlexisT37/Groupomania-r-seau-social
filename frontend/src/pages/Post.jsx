@@ -171,6 +171,7 @@ function Post() {
               /* on ajoute la valeur key pour éviter les warnings d'argument non utilisé */
               <div key={key} className="comment">
                 {comment.commentBody}
+                <br />
                 <label>Utilisateur : {comment.username}</label>
                 {/* si le nom d'utilisateur obtenu dans le authstate est égal à l'utilisateur qui a écrit le commentaire */}
                 {/* //! type */}
