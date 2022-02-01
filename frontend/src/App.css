@@ -221,6 +221,10 @@ span {
   /* margin-bottom: 30px; */
 }
 
+.nomUtil {
+  margin-top: 2rem;
+}
+
 .rightSide .addCommentContainer {
   flex: 20%;
   width: 100%;

@@ -172,7 +172,9 @@ function Post() {
               <div key={key} className="comment">
                 {comment.commentBody}
                 <br />
-                <label>Utilisateur : {comment.username}</label>
+                <div className="nomUtil">
+                  <label>Utilisateur : {comment.username}</label>
+                </div>
                 {/* si le nom d'utilisateur obtenu dans le authstate est égal à l'utilisateur qui a écrit le commentaire */}
                 {/* //! type */}
                 {(authState.username === comment.username ||
