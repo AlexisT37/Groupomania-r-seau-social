@@ -1,10 +1,25 @@
 # Projet 7 Open Classrooms
 
+## Installation
+
+Clonez les fichiers sur votre ordinateur
+Dans le dossier backend, utilisez la commande npm install
+Dans le dossier frontend, utilisez la commande npm install
+Éditez le dossier config.json dans le dossier backend/config et remplacez
+l'entrée password par votre mot de passe root MySql.
+La base de données groupomania sera crée lorsque vous lancez le backend.
+
+Créez un fichier .env dans le dossier backend/config.
+Éditez les lignes suivantes avec les valeurs de votre choix
+PORT =
+SECRETTOKEN =
+
 ## Démarrage de l'application
 
 Dans VsCode:
 Ouvrez deux terminaux (clic droit sur les dossiers puis "Open in integrated terminal") pour les dossiers backend et frontend.
-Utiliser la commande npm start pour démarrer le serveur et le frontend.
+Utiliser la commande npm start pour démarrer le serveur.
+Utiliser la commande npm start pour démarrer le frontend.
 Utiliser ctrl + C dans le terminal pour arrêter le serveur ou le frontend.
 
 Puisque le token est stocké dans le localstorage, pour tester les connexions il faut aller dans les paramètres de votre navigateur
@@ -46,3 +61,4 @@ et vider le localstorage. Vous serez alors redirigé vers la page de connexion.
 - l'utilisateur peut désactiver son compte: il ne s'agit pas d'une suppression véritable mais d'une désactivation du compte.
 - l'utilisateur admin peut supprimer les posts et les commentaires des autres utilisateurs
 - l'utilisateur peut se rendre sur son propre profil depuis n'importe quelle page avec la barre de navigation.
+- les images sont gérées grace à un hébergeur externe et ne sont pas stockquées dans la base données.
