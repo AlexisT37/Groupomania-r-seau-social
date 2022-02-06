@@ -98,7 +98,7 @@ exports.login = async (req, res) => {
           expiresIn: "10h",
         },
         // { username: user.username, id: user.id },
-        "SECRET_TOKEN"
+        process.env.SECRETTOKEN
       );
 
       /* on renvoie les information sur l'utilsateur dont le nom et l'id */
