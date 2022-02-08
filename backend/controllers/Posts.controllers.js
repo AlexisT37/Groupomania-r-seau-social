@@ -1,7 +1,4 @@
-const express = require("express");
-const router = express.Router();
 const { Posts, Likes } = require("../models");
-const { validateToken } = require("../middlewares/AuthMiddleware");
 
 exports.getAllPosts = async (req, res) => {
   /* methode findAll pour executer select * form en mysql, puis en renvoie la liste en json */
@@ -14,7 +11,6 @@ exports.getAllPosts = async (req, res) => {
 };
 
 exports.latest = async (req, res) => {
-  const hello = "hello";
   const listOfPostsLatest = await Posts.findAll({
     limit: 5,
     order: [["createdAt", "DESC"]],
@@ -22,7 +18,6 @@ exports.latest = async (req, res) => {
   });
   const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
   res.json({ listOfPostsLatest: listOfPostsLatest, likedPosts: likedPosts });
-  // res.json({ message: hello });
 };
 
 exports.getPostById = async (req, res) => {

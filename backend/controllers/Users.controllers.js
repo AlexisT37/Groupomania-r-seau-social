@@ -1,9 +1,6 @@
-// const express = require("express");
-// const router = express.Router();
 const { Users } = require("../models");
 const { sign } = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-// const { validateToken } = require("../middlewares/AuthMiddleware");
 
 const passwordValidator = require("password-validator");
 const mdpSchema = new passwordValidator();
@@ -50,8 +47,6 @@ exports.register = async (req, res) => {
       Users.create({
         username: username,
         password: hash,
-        //! Attention added admin
-        // admin: true,
       });
       res.json("Utilisateur créé");
     })
@@ -103,7 +98,6 @@ exports.login = async (req, res) => {
 
       /* on renvoie les information sur l'utilsateur dont le nom et l'id */
       /* on aurait également pu utiliset user.username mais de toutes façons si le login est correct alors c'est le même que username */
-      //! Attention added admin
       res.json({
         token: accessToken,
         username: username,
