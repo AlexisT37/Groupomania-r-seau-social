@@ -42,8 +42,6 @@ function App() {
             username: response.data.username,
             id: response.data.id,
             status: true,
-            //! Attention added admin
-            admin: false,
           });
         }
       });
@@ -59,10 +57,7 @@ function App() {
 
   return (
     <div className="main">
-      <div
-        className="banner"
-        // style={{ backgroundImage: `url(${banner})` }}
-      >
+      <div className="banner">
         <img src={banner} alt="coucou" />
       </div>
 

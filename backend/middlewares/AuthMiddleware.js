@@ -16,10 +16,8 @@ const validateToken = (req, res, next) => {
     const validToken = verify(accessToken, "SECRET_TOKEN");
     /* req va contenir les information présentes dans le validToken pour les utiliser  */
     /* après ce middleware d'autentification */
-    // console.log(validToken);
     req.user = validToken;
     /* si le booleen est vrai, donc si le token valide */
-    // console.log(validToken);
     if (validToken) {
       return next();
     }

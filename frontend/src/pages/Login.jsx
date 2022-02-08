@@ -12,10 +12,7 @@ function Login() {
   let history = useHistory();
 
   const login = () => {
-    /* //todo est-ce que directement {username, password} ça marche ? a tester */
-    //! Attention added admin
     const data = { username: username, password: password };
-    // console.log(data);
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
       /* puisque les requêtes backend contiennent error dans leur response en cas d'erreur, alors on peut */
       /* utiliser le paramètre suivant: s'il y a une erreur */
@@ -28,14 +25,11 @@ function Login() {
         setAuthState({
           username: response.data.username,
           id: response.data.id,
-          //! Attention added admin
           status: true,
           admin: response.data.admin,
         });
         history.push("/");
       }
-
-      // console.log(response.data);
     });
   };
 

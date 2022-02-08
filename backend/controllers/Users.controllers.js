@@ -70,7 +70,6 @@ exports.login = async (req, res) => {
   /* s'il n'y a pas d'utilisateur, user sera vide */
   const user = await Users.findOne({ where: { username: username } });
   if (!user) res.json({ error: "Cet utilisateur n'existe pas" });
-  // console.log(user);
   /* si la valeur actif est fausse alors l'utilisateur ne peut pas se connecter */
   if (user.actif === false) res.json({ error: "Ce compte est désactivé" });
   /* on ne peut pas déhasher un mot de passe, mais on peut comparer les deux hash. */
@@ -81,10 +80,7 @@ exports.login = async (req, res) => {
     .then(async (match) => {
       if (!match) res.json({ error: "Mot de passe incorrect" });
 
-      /* //todo changer le seed et le mettre dans env */
       /* le token contiendra le nom et l'id de l'utilisateur */
-      /* //todo verifier mais a priori pas necessaire de mettre le mot de passe dans un token, pas safe et login par token est suffisant */
-      //! Attention added admin
       const accessToken = sign(
         {
           username: user.username,
@@ -92,7 +88,6 @@ exports.login = async (req, res) => {
           admin: user.admin,
           expiresIn: "10h",
         },
-        // { username: user.username, id: user.id },
         process.env.SECRETTOKEN
       );
 
@@ -102,7 +97,6 @@ exports.login = async (req, res) => {
         token: accessToken,
         username: username,
         id: user.id,
-        //todo
         admin: user.admin,
       });
     })
@@ -112,12 +106,7 @@ exports.login = async (req, res) => {
 };
 
 exports.profile = async (req, res) => {
-  console.log(req.body);
-
   const id = req.params.id;
-
-  console.log(id);
-
   /* on va obtenir toutes les informations de l'utilisateur sauf le mot de passe, en utilisant la commande findByPk, ou
     trouver par clé primaire, qui est ici l'id */
   const basicInfo = await Users.findByPk(id, {

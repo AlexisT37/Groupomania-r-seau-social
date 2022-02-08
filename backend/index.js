@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-// require("dotenv").config();
 require("dotenv").config({ path: "./config/.env" });
 const app = express();
 const cors = require("cors");
@@ -11,8 +10,6 @@ const AuthMiddleware = require("./middlewares/AuthMiddleware");
 app.use(express.json());
 /* pour les autorisations de cors */
 app.use(cors());
-
-// app.use(dotenv);
 
 /* sécurité helmet */
 app.use(helmet());

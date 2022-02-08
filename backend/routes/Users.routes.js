@@ -9,15 +9,15 @@ const userCtrl = require("../controllers/Users.controllers");
 
 router.post("/register", userCtrl.register);
 
-router.put("/deactivate/:id", userCtrl.deactivate);
+router.put("/deactivate/:id", validateToken, userCtrl.deactivate);
 
 router.post("/login", userCtrl.login);
+
+router.get("/basicinfo/:id", validateToken, userCtrl.profile);
 
 /* ceci permet de vérifier si ce qui est présent dans le localstorage est bien un token valide */
 router.get("/auth", validateToken, (req, res) => {
   res.json(req.user);
 });
-
-router.get("/basicinfo/:id", userCtrl.profile);
 
 module.exports = router;

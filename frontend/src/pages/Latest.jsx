@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import { AuthContext } from "../helpers/AuthContext";
+import { Image } from "cloudinary-react";
 
 function Latest() {
   const [listOfPosts, setListOfPosts] = useState([]);
@@ -84,6 +85,9 @@ function Latest() {
             <div className="title"> {value.title} </div>
             {/* on a déplacé le onclick de façon à ce qu'on n'aille sur la page du post que si on clique au milieu */}
             {/* alors que si on like, on ne va pas sur la page du post */}
+            <div className="image">
+              <Image cloudName="testgroupopen" publicId={value.imgId}></Image>
+            </div>
             <div
               className="body"
               onClick={() => {
@@ -94,7 +98,9 @@ function Latest() {
             </div>
             <div className="footer">
               <div className="username">
-                <Link to={`/profile/${value.UserId}`}>{value.username}</Link>
+                <Link className="LienProfil" to={`/profile/${value.UserId}`}>
+                  {value.username}
+                </Link>
               </div>
               <div className="buttons">
                 <ThumbUpAltIcon

@@ -1,4 +1,3 @@
-const express = require("express");
 const { Comments } = require("../models");
 
 exports.getPostId = async (req, res) => {
@@ -15,7 +14,6 @@ exports.postComment = async (req, res) => {
   const comment = req.body;
   /* on récupère le username contenu dans le req.body, lui même obtenu grâce au token */
   const username = req.user.username;
-  // console.log(username);
   /* à présent le commentaire aura un nom d'utilisateur qui lui vient du corps de la requète, qui lui-même vient du token */
   comment.username = username;
   await Comments.create(comment);

@@ -13,13 +13,13 @@ function Registration() {
     username: Yup.string()
       .min(3)
       .max(15)
-      .required("Vous devez entrer un nom d'utilisateur !"),
+      .required("Vous devez entrer un nom d'utilisateur !")
+      .matches(/^\S*$/, "Vous ne devez pas mettre d'espace"),
     password: Yup.string()
       .required("Vous devez entrer un mot de passe")
       .min(8, "Il faut au moins 8 caractères")
       .matches(/[a-z]+/, "Il faut des minuscules")
       .matches(/[A-Z]+/, "Il faut des majuscules")
-      // .matches(/[@$!%*#?&]+/, "One special character")
       .matches(/\d+/, "Il faut au moins un chiffre"),
   });
 
@@ -37,9 +37,6 @@ function Registration() {
 
   return (
     <div>
-      {/* //todo br formulaire: facon simple mais peut-etre editer margin du div au dessus de ce commentaire*/}
-      {/* br pour aérer le formulaire de la barre de navigation */}
-      {/* <br /> */}
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}

@@ -4,18 +4,15 @@ import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../helpers/AuthContext";
 import { Image } from "cloudinary-react";
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 
 function Profile() {
   let { id } = useParams();
   let history = useHistory();
   const [username, setUsername] = useState("");
   const [listOfPosts, setListOfPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
   const { authState, setAuthState } = useContext(AuthContext);
-
-  console.log(authState);
-  console.log("liste des posts");
-  console.log(listOfPosts);
-
   useEffect(() => {
     axios
       .get(`http://localhost:3001/auth/basicinfo/${id}`, {
@@ -23,7 +20,6 @@ function Profile() {
       })
       .then((response) => {
         setUsername(response.data.username);
-        console.log("helo");
       });
     axios
       .get(`http://localhost:3001/posts/byuserId/${id}`, {
@@ -31,9 +27,46 @@ function Profile() {
       })
       .then((response) => {
         setListOfPosts(response.data);
-        console.log("helo2");
       });
   }, []);
+
+  /* fonction pour liker un post en frontend */
+  const likeAPost = (postId) => {
+    axios
+      .post(
+        "http://localhost:3001/likes",
+        { PostId: postId },
+        { headers: { accessToken: localStorage.getItem("accessToken") } }
+      )
+      .then((response) => {
+        setListOfPosts(
+          listOfPosts.map((post) => {
+            if (post.id === postId) {
+              if (response.data.liked) {
+                return { ...post, Likes: [...post.Likes, 0] };
+              } else {
+                const likesArray = post.Likes;
+                likesArray.pop();
+                return { ...post, Likes: likesArray };
+              }
+            } else {
+              return post;
+            }
+          })
+        );
+        if (likedPosts.includes(postId)) {
+          setLikedPosts(
+            /* on ne garde que les id qui ne sont pas egaux a notre postId */
+            likedPosts.filter((id) => {
+              return id != postId;
+            })
+          );
+        } else {
+          /* si notre postId n'est pas présent alors on l'ajoute au tableau */
+          setLikedPosts([...likedPosts, postId]);
+        }
+      });
+  };
 
   const deactivateUser = () => {
     axios
@@ -48,9 +81,6 @@ function Profile() {
           /* cela ne marchera que pour le premier post de la session  */
 
           console.log("compte désactivé !");
-          // window.location.reload(false);
-          // console.log(location.pathname);
-
           /* pour se déconnecter, on retire le token du locasStorage */
           localStorage.removeItem("accessToken");
           /* puis on met le réinitialise le authState */
@@ -67,16 +97,6 @@ function Profile() {
         {(username == authState.username || authState.admin === true) && (
           <button
             onClick={() => {
-              console.log("Hello clique desactiver");
-              // console.log(username);
-              // console.log(id);
-              // console.log(authState.username);
-              console.log("trying to find");
-              // console.log(authState.usernamePrimal);
-              // const teso = authState;
-              // console.log(teso);
-              // console.log(typeof teso);
-
               deactivateUser();
             }}
           >
@@ -106,7 +126,17 @@ function Profile() {
               <div className="footer">
                 <div className="username">{value.username}</div>
                 <div className="buttons">
-                  <label> J'aime : {value.Likes.length}</label>
+                  <ThumbUpAltIcon
+                    onClick={() => {
+                      likeAPost(value.id);
+                    }}
+                    /* si le post des posts likés inclut notre id, alors on veut avoir l'option de ne plus liker notre post */
+                    /* a l'inverse, si le tableau n'inclut pas notre id, on veut pouvoir liker notre post */
+                    className={
+                      likedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"
+                    }
+                  />
+                  <label> {value.Likes.length}</label>
                 </div>
               </div>
             </div>

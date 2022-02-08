@@ -11,15 +11,8 @@ function Post() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const { authState } = useContext(AuthContext);
-
-  // console.log("object debut");
-  // console.log(postObject);
-  // console.log("object fin");
-
   let history = useHistory();
   let location = useLocation();
-  //! Attention added admin
-  // console.log(authState);
 
   useEffect(() => {
     axios
@@ -55,7 +48,6 @@ function Post() {
         },
         {
           headers: {
-            /* //todo on va utiliser le localstorage, il faudra se deconecter */
             accessToken: localStorage.getItem("accessToken"),
           },
         }
@@ -77,15 +69,12 @@ function Post() {
           /* ainsi le champ est à nouveau vide */
           setNewComment("");
           console.log("Commentaire ajouté !");
-          // window.location.reload(false);
-          // console.log(location.pathname);
           history.push(location.pathname);
         }
       });
   };
 
   const deleteComment = (id) => {
-    // console.log(id);
     axios
       .delete(`http://localhost:3001/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
@@ -97,7 +86,6 @@ function Post() {
         setComments(
           comments.filter((valeur) => {
             return valeur.id !== id;
-            //! type
           })
         );
       });
@@ -112,10 +100,6 @@ function Post() {
         history.push("/");
       });
   };
-
-  // const sharePost = () => {
-  // const shareUrl = URLSearchParams;
-  // };
 
   return (
     <div className="postPage">
@@ -176,7 +160,6 @@ function Post() {
                   <label>Utilisateur : {comment.username}</label>
                 </div>
                 {/* si le nom d'utilisateur obtenu dans le authstate est égal à l'utilisateur qui a écrit le commentaire */}
-                {/* //! type */}
                 {(authState.username === comment.username ||
                   authState.admin === true) && (
                   <button

@@ -1,7 +1,4 @@
-// const express = require("express");
-// const router = express.Router();
 const { Likes } = require("../models");
-// const { validateToken } = require("../middlewares/AuthMiddleware");
 
 exports.createLike = async (req, res) => {
   /* on va avoir le userId et le postId par le req.body */

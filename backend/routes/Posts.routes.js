@@ -14,9 +14,9 @@ router.get("/", validateToken, postCtrl.getAllPosts);
 
 router.get("/latest", validateToken, postCtrl.latest);
 
-router.get("/byId/:id", postCtrl.getPostById);
+router.get("/byId/:id", validateToken, postCtrl.getPostById);
 
-router.get("/byuserId/:id", postCtrl.getPostByUserId);
+router.get("/byuserId/:id", validateToken, postCtrl.getPostByUserId);
 
 router.post("/", validateToken, postCtrl.createPost);
 

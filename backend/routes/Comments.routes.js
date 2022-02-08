@@ -5,7 +5,7 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 /* on utilise le validateToken pour verifier si on a le droit de commenter */
 const commentCtrl = require("../controllers/Comments.controllers");
 
-router.get("/:postId", commentCtrl.getPostId);
+router.get("/:postId", validateToken, commentCtrl.getPostId);
 
 router.post("/", validateToken, commentCtrl.postComment);
 

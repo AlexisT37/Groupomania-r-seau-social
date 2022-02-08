@@ -1,5 +1,4 @@
 const { Posts, Likes } = require("../models");
-
 exports.getAllPosts = async (req, res) => {
   /* methode findAll pour executer select * form en mysql, puis en renvoie la liste en json */
   const listOfPosts = await Posts.findAll({ include: [Likes] });
@@ -22,7 +21,6 @@ exports.latest = async (req, res) => {
 
 exports.getPostById = async (req, res) => {
   try {
-    // console.log("hello");
     const id = req.params.id;
     const post = await Posts.findByPk(id);
     res.json(post);
@@ -33,7 +31,6 @@ exports.getPostById = async (req, res) => {
 
 exports.getPostByUserId = async (req, res) => {
   try {
-    // console.log("hello");
     const id = req.params.id;
     const listOfPosts = await Posts.findAll({
       where: { UserId: id },

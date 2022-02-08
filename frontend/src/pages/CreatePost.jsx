@@ -30,12 +30,9 @@ function CreatePost() {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Vous devez entrer un titre !"),
     postText: Yup.string().required("Vous devez entrer un contenu !"),
-    // imgId: Yup.string().required("Vous devez mettre une Id d'image !"),
   });
 
   const onSubmit = (data) => {
-    console.log("data dans onsubit");
-    console.log(data);
     axios
       .post(
         "http://localhost:3001/posts",
@@ -46,12 +43,10 @@ function CreatePost() {
       )
       .then((response) => {
         history.push("/");
-        // console.log(response);
       });
   };
 
   const uploadImage = (files) => {
-    console.log(files[0]);
     const formData = new FormData();
     formData.append("file", files[0]);
     formData.append("upload_preset", "testupload");
@@ -61,8 +56,6 @@ function CreatePost() {
         formData
       )
       .then((response) => {
-        console.log(response);
-        console.log(response.data.public_id);
         ApplyUrl(response.data.public_id);
       });
   };
@@ -121,10 +114,6 @@ function CreatePost() {
             type="submit"
             onClick={() => {
               initialValues.imgId = imgIdForm;
-              console.log("imgidmorm: ");
-              console.log(imgIdForm);
-              console.log("initial values");
-              console.log(initialValues);
             }}
           >
             {" "}
