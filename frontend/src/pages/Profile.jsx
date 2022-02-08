@@ -70,9 +70,13 @@ function Profile() {
 
   const deactivateUser = () => {
     axios
-      .put(`http://localhost:3001/auth/deactivate/${id}`, {
-        username: username,
-      })
+      .put(
+        `http://localhost:3001/auth/deactivate/${id}`,
+        {
+          username: username,
+        },
+        { headers: { accessToken: localStorage.getItem("accessToken") } }
+      )
       .then((response) => {
         if (response.data.error) {
           console.log(response.data.error);
