@@ -51,6 +51,7 @@ et vider le localstorage. Vous serez alors redirigé vers la page de connexion.
 - cloudinary-react pour mettre en ligne et afficher des image. Grâce à cette librairie, le site entre en relation avec l'hébergeur cloudinary.
   Ainsi, seul l'id de l'image est stocké pour ne pas avoir a conserver l'URI/URL de l'image ou l'image elle-même.
 - password-validator pour faire en sorte que le mot de passe soit assez sécurisé lors de l'inscription.
+- express-rate-limit pour limiter le nombre de requêtes consécutives
 
 ##Fonctionnalités:
 
